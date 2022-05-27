@@ -4,7 +4,7 @@ import GridLayout from "react-grid-layout";
 
 
 
-const DragAndDropscreen = () => {
+const DragAndDropScreen = () => {
     const layout = [
         { i: "a", x: 0, y: 0, w: 1, h: 2 },
         { i: "b", x: 0, y: 1, w: 1, h: 2 },
@@ -27,4 +27,4 @@ const DragAndDropscreen = () => {
       );
 };
 
-export default DragAndDropscreen;
+export default DragAndDropScreen;

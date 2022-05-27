@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import "./Showmore.css";
+import "./ShowMore.css";
 import Box from '@mui/material/Box';
 
 
 
 
-const Showmorescreen = () => {
+const ShowMoreScreen = () => {
     const [showMore, setshowMore] = useState('none');
 
     
@@ -54,4 +54,4 @@ const Showmorescreen = () => {
   )
 }
 
-export default Showmorescreen
+export default ShowMoreScreen

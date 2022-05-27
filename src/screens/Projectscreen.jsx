@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux';
 import {useNavigate} from 'react-router-dom';
 import { selectUser } from '../features/userSlice';
 
-const Projectscreen = () => {
-  
+const ProjectScreen = () => {
+
     const navigate = useNavigate();
     const user = useSelector(selectUser);
 
@@ -17,8 +17,8 @@ const Projectscreen = () => {
     })
     
   return (
-    <div>Projectscreen</div>
+    <div>ProjectScreen</div>
   )
 }
 
-export default Projectscreen
+export default ProjectScreen

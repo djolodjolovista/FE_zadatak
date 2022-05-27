@@ -9,7 +9,7 @@ import {useNavigate} from 'react-router-dom';
 import { Typography } from '@mui/material';
 
 
-const Introscreen = () => {
+const IntroScreen = () => {
 
  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
@@ -49,4 +49,4 @@ const Introscreen = () => {
   )
 }
 
-export default Introscreen
+export default IntroScreen

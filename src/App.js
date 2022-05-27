@@ -1,11 +1,11 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar";
-import DragAndDropscreen from "./screens/DragAndDropscreen";
-import Introscreen from "./screens/Introscreen";
-import Newprojectscreen from "./screens/Newprojectscreen";
-import Projectscreen from "./screens/Projectscreen";
-import Showmorescreen from "./screens/Showmorescreen";
+import DragAndDropScreen from "./screens/DragAndDropScreen";
+import IntroScreen from "./screens/IntroScreen";
+import NewProjectScreen from "./screens/NewProjectScreen";
+import ProjectScreen from "./screens/ProjectScreen";
+import ShowMoreScreen from "./screens/ShowMoreScreen";
 
 function App() {
   return (
@@ -14,11 +14,11 @@ function App() {
       <BrowserRouter>
       <Navbar />
        <Routes>
-         <Route path="/" element={<Introscreen />} />
-         <Route path="/showmore" element={<Showmorescreen />} />
-         <Route path="/projects" element={<Projectscreen />} />
-         <Route path="/draganddrop" element={<DragAndDropscreen />} />
-         <Route path="/newproject" element={<Newprojectscreen />} />
+         <Route path="/" element={<IntroScreen />} />
+         <Route path="/show-more" element={<ShowMoreScreen />} />
+         <Route path="/projects" element={<ProjectScreen />} />
+         <Route path="/drag-and-drop" element={<DragAndDropScreen />} />
+         <Route path="/new-project" element={<NewProjectScreen />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, TextField, Typography, Box } from "@mui/material";
-import './Newproject.css';
+import './NewProject.css';
 
-const Newprojectscreen = () => {
+const NewProjectScreen = () => {
   return (
     <div className="newproject_container">
     <Box
@@ -27,4 +27,4 @@ const Newprojectscreen = () => {
   );
 };
 
-export default Newprojectscreen;
+export default NewProjectScreen;
