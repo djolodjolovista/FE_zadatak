@@ -3,9 +3,10 @@ import './App.css';
 import Navbar from "./components/Navbar";
 import DragAndDropScreen from "./screens/DragAndDropScreen";
 import IntroScreen from "./screens/IntroScreen";
-import NewProjectScreen from "./screens/NewProjectScreen";
-import ProjectScreen from "./screens/ProjectScreen";
+import NewCompanyScreen from "./screens/NewCompanyScreen";
+import CompaniesScreen from "./screens/CompaniesScreen";
 import ShowMoreScreen from "./screens/ShowMoreScreen";
+import EditCompany from "./screens/EditCompany";
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
        <Routes>
          <Route path="/" element={<IntroScreen />} />
          <Route path="/show-more" element={<ShowMoreScreen />} />
-         <Route path="/projects" element={<ProjectScreen />} />
+         <Route path="/companies" element={<CompaniesScreen />} />
          <Route path="/drag-and-drop" element={<DragAndDropScreen />} />
-         <Route path="/new-project" element={<NewProjectScreen />} />
+         <Route path="/new-company" element={<NewCompanyScreen />} />
+         <Route path="/edit-company/:companyId" element={<EditCompany />} />
         </Routes>
       </BrowserRouter>
     </div>
