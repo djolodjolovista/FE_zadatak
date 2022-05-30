@@ -1,0 +1,11 @@
+.drag_and_drop_text::selection{
+    background: transparent;
+}
+
+.drag_and_drop_columns::selection{
+    background: transparent;
+}
+
+.drag_and_drop_columns{
+    color: rgb(0, 132, 255);
+}

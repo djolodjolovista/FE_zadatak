@@ -1,30 +1,94 @@
-import * as React from 'react';
-import { Card, Typography } from '@mui/material';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { Card, Typography } from "@mui/material";
 import GridLayout from "react-grid-layout";
-
-
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import axios from "axios";
+import "./DragAndDrop.css";
 
 const DragAndDropScreen = () => {
-    const layout = [
-        { i: "a", x: 0, y: 0, w: 1, h: 2 },
-        { i: "b", x: 0, y: 1, w: 1, h: 2 },
-        { i: "c", x: 0, y: 2, w: 1, h: 2 },
-        { i: "d", x: 0, y: 3, w: 1, h: 2 }
-      ];
-    return (
-        <GridLayout
-          className="layout"
-          layout={layout}
-          cols={2}
-          rowHeight={30}
-          width={1280}
+  const user = useSelector(selectUser);
+  const tokenId = user.tokenId;
+  const [companies, setCompanies] = useState([]);
+  const fetchData = async () => {
+    let data = {};
+
+    await axios
+      .get("https://srg-budget-tracker-api.herokuapp.com/companies", {
+        headers: {
+          Authorization: `Bearer ${tokenId}`,
+        },
+      })
+      .then((res) => {
+        data = res.data.items;
+        console.log("Companies => ", data);
+
+        console.log("Name=> ", data[1].companyName);
+      })
+      .catch((err) => {
+        console.log("Error => ", err);
+      });
+    setCompanies(data);
+  };
+  useEffect(() => {
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div>
+      <GridLayout className="layout" cols={2} rowHeight={10} width={1280}>
+        <div
+          style={{
+            backgroundColor: "transparent",
+            color: "black",
+            textAlign: "center",
+          }}
+          data-grid={{ x: 0, y: 0, w: 1, h: 2, static: true }}
+          key="kol1"
         >
-          <div style={{backgroundColor: "blue", color:"red"}} key="a">Prvi projekat</div>
-          <div style={{backgroundColor: "blue", color:"red"}} key="b">Drugi projekat</div>
-          <div style={{backgroundColor: "blue", color:"red"}} key="c">Treci projekat</div>
-          <Card style={{backgroundColor: "blue", color:"red"}} key="d"><Typography>Cetvrti projekat</Typography></Card>
-        </GridLayout>
-      );
+          <Typography className="drag_and_drop_columns" variant="h4">
+            Column 1
+          </Typography>
+        </div>
+        <div
+          style={{
+            backgroundColor: "transparent",
+            color: "black",
+            textAlign: "center",
+          }}
+          data-grid={{ x: 1, y: 0, w: 1, h: 2, static: true }}
+          key="kol2"
+        >
+          <Typography className="drag_and_drop_columns" variant="h4">
+            Column 2
+          </Typography>
+        </div>
+      </GridLayout>
+      <GridLayout className="layout" cols={2} rowHeight={40} width={1280}>
+        {companies.map((company, index) => (
+          <Card
+            style={{
+              backgroundColor: "lightBlue",
+              color: "black",
+              textAlign: "center",
+            }}
+            data-grid={{ x: 0, y: 0, w: 1, h: 2 }}
+            key={index}
+          >
+            <Typography
+              sx={{ mt: 3 }}
+              variant="h6"
+              className="drag_and_drop_text"
+            >
+              {company.companyName}
+            </Typography>
+          </Card>
+        ))}
+      </GridLayout>
+    </div>
+  );
 };
 
 export default DragAndDropScreen;
