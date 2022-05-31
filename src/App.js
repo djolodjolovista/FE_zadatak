@@ -1,11 +1,11 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar";
-import DragAndDropScreen from "./screens/DragAndDropScreen1";
+import DragAndDropScreen from "./screens/DragAndDropScreen";
 import IntroScreen from "./screens/IntroScreen";
 import NewCompanyScreen from "./screens/NewCompanyScreen";
 import CompaniesScreen from "./screens/CompaniesScreen";
-import ShowMoreScreen from "./screens/ShowMoreScreen1";
+import ShowMoreScreen from "./screens/ShowMoreScreen";
 import EditCompanyScreen from "./screens/EditCompanyScreen";
 import DeleteScreen from "./screens/DeleteScreen";
 import {useSelector} from 'react-redux';
