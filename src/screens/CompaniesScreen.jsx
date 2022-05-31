@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { selectUser } from "../features/userSlice";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -11,6 +11,12 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import './Companies.css';
+import Loader from "../components/Loader";
+
+
+
+
+
 
 const bull = (
   <Box
@@ -25,12 +31,18 @@ const CompaniesScreen = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const [companies, setCompanies] = useState([]);
+  const [loading, setLoading] = useState();
 
   const tokenId = user.tokenId;
 
   const fetchData = async () => {
+   
+    
+
+   
     let data = {};
 
+    setLoading(true);
     await axios
       .get("https://srg-budget-tracker-api.herokuapp.com/companies", {
         headers: {
@@ -44,23 +56,25 @@ const CompaniesScreen = () => {
         console.log("Imena=> ", data[1].companyId);
       })
       .catch((err) => {
+        setLoading(false);
         console.log("Error => ", err);
       });
     setCompanies(data);
+    setLoading(false);
+  
 
   };
 
   useEffect(() => {
-    if (!user) {
-      navigate("/");
-    } else {
+     
       fetchData();
-    }
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div>
+      
       <Grid
   container
   spacing={0}
@@ -69,11 +83,12 @@ const CompaniesScreen = () => {
   justifyContent="center"
   
 >
+
 <Button sx={{mt:2, mb:2, width:"30%"}} variant="contained" onClick={()=>{navigate("/new-company")}}>Create/New</Button>
   </Grid >
 
           
-        
+  {loading ? (<Loader />): ( 
       <Box sx={{ flexGrow: 1 }}>
         <Grid
           container
@@ -99,15 +114,16 @@ const CompaniesScreen = () => {
                    
                   </CardContent>
                   <CardActions>
+                  
                     <Button size="small" onClick={()=>{navigate(`/edit-company/${company.companyId}`)}}>Edit</Button>
-                    <Button variant="contained">Delete</Button>
+                    <Button variant="contained" onClick={()=>{navigate(`/delete-company/${company.companyId}`)}}>Delete</Button>
                   </CardActions>
                 </React.Fragment>
               </Card>
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Box>)}
     </div>
   );
 };

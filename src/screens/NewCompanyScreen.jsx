@@ -11,6 +11,7 @@ import Slide from "@mui/material/Slide";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -22,6 +23,7 @@ const NewCompanyScreen = () => {
   const user = useSelector(selectUser);
   const textInput = React.useRef(null);
   const [alert, setAlert] = useState(false);
+  const navigate = useNavigate();
 
   const tokenId = user.tokenId;
   const handleClose = () => {
@@ -98,18 +100,37 @@ const NewCompanyScreen = () => {
             setAlert(false);
           }}
         />
-        {alert && (
-          <Alert sx={{ ml: 6, mt: 2 }} severity="success">
+        {alert ? (
+           <Box
+           component="form"
+           sx={{
+             display: "flex",
+             alignItems: "flex-start",
+             flexDirection: "column",
+             p: 1,
+             m: 1,
+             bgcolor: "background.paper",
+             borderRadius: 1,
+           }}
+         >
+          <Alert sx={{ ml: 4, mt: 2 }} severity="success">
             Success!
           </Alert>
-        )}
+           <Button
+           sx={{ mt: 2, width: "70%", ml: "25%" }}
+           variant="contained"
+           onClick={()=>{navigate("/companies")}}
+         >
+           Go back
+         </Button></Box>
+        ):(
         <Button
           sx={{ mt: 2, width: "50%", ml: "25%" }}
           variant="contained"
           onClick={addCompanie}
         >
           Save
-        </Button>
+        </Button>)}
       </Box>
     </div>
   );
