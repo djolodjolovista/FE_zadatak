@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Login from "../components/Login";
 import Logout from "../components/Logout";
-import "./Intro.css";
+import "./IntroScreen.css";
 import { gapi } from "gapi-script";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";

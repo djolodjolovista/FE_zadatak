@@ -10,7 +10,7 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
-import './Companies.css';
+import './CompaniesScreen.css';
 import Loader from "../components/Loader";
 
 

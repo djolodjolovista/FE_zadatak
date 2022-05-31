@@ -5,7 +5,7 @@ import GridLayout from "react-grid-layout";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import axios from "axios";
-import "./DragAndDrop.css";
+import "./DragAndDropScreen.css";
 
 const DragAndDropScreen = () => {
   const user = useSelector(selectUser);
