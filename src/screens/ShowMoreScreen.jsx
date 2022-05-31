@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ShowMore.css";
+import "./ShowMoreScreen.css";
 import Box from "@mui/material/Box";
 
 const ShowMoreScreen = () => {
