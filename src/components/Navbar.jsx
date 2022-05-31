@@ -76,7 +76,7 @@ const Navbar = () => {
         
           {user ? (<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Companies</ Typography>) : 
             (<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Home</Typography>)}
-            {location.pathname === '/projects' && (  <Search>
+            {location.pathname === '/companies' && (  <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
