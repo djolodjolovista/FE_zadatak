@@ -1,5 +1,6 @@
 import React from 'react';
 import Pagination from '@mui/material/Pagination';
+import './AppPagination.css';
 
 
 
@@ -11,17 +12,10 @@ const AppPagination = ({setPage, pageCount}) => {
 
   return (
     <div>
-        <Pagination 
+        <Pagination className='pagination'
         onChange={handleChange}
         count={pageCount} 
-        
-        style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "10px",
-            marginBottom: "10px"
-        }}
-        
+        color="primary"
         />
     </div>
   )

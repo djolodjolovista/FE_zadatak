@@ -140,6 +140,7 @@ const CompaniesScreen = () => {
       )}
       <AppPagination setPage={setPage} pageCount={numberOfPages} />
     </div>
+
   );
 };
 
