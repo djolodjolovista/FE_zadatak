@@ -39,12 +39,7 @@ const DragAndDropScreen = () => {
   return (
     <div>
       <GridLayout className="layout" cols={2} rowHeight={10} width={1280}>
-        <div
-          style={{
-            backgroundColor: "transparent",
-            color: "black",
-            textAlign: "center",
-          }}
+        <div className="column_header_container"
           data-grid={{ x: 0, y: 0, w: 1, h: 2, static: true }}
           key="kol1"
         >
@@ -52,12 +47,7 @@ const DragAndDropScreen = () => {
             Column 1
           </Typography>
         </div>
-        <div
-          style={{
-            backgroundColor: "transparent",
-            color: "black",
-            textAlign: "center",
-          }}
+        <div className="column_header_container"
           data-grid={{ x: 1, y: 0, w: 1, h: 2, static: true }}
           key="kol2"
         >
@@ -69,10 +59,11 @@ const DragAndDropScreen = () => {
       <GridLayout className="layout" cols={2} rowHeight={40} width={1280}>
         {companies.map((company, index) => (
           <Card
-            style={{
+            sx={{
               backgroundColor: "lightBlue",
               color: "black",
               textAlign: "center",
+              boxShadow:4
             }}
             data-grid={{ x: 0, y: 0, w: 1, h: 2 }}
             key={index}

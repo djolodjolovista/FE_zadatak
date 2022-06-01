@@ -109,7 +109,7 @@ useEffect(() => {
   justifyContent="center"
   
 >
-       <Card variant="outlined" sx={{width:"50%", mt:2}}>
+       <Card variant="outlined" sx={{width:"50%", mt:2, border:2}}>
                 <React.Fragment>
                   <CardContent>
                     <Typography
