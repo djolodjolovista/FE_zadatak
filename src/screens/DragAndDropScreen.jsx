@@ -39,7 +39,8 @@ const DragAndDropScreen = () => {
   return (
     <div>
       <GridLayout className="layout" cols={2} rowHeight={10} width={1280}>
-        <div className="column_header_container"
+        <div
+          className="column_header_container"
           data-grid={{ x: 0, y: 0, w: 1, h: 2, static: true }}
           key="kol1"
         >
@@ -47,7 +48,8 @@ const DragAndDropScreen = () => {
             Column 1
           </Typography>
         </div>
-        <div className="column_header_container"
+        <div
+          className="column_header_container"
           data-grid={{ x: 1, y: 0, w: 1, h: 2, static: true }}
           key="kol2"
         >
@@ -63,7 +65,7 @@ const DragAndDropScreen = () => {
               backgroundColor: "lightBlue",
               color: "black",
               textAlign: "center",
-              boxShadow:4
+              boxShadow: 4,
             }}
             data-grid={{ x: 0, y: 0, w: 1, h: 2 }}
             key={index}

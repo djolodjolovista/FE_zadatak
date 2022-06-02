@@ -13,6 +13,53 @@ import axios from "axios";
 import "./CompaniesScreen.css";
 import Loader from "../components/Loader";
 import AppPagination from "../components/AppPagination";
+import SearchIcon from "@mui/icons-material/Search";
+import { styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: "#e1f5fe",
+  "&:hover": {
+    backgroundColor: "#e3f2fd",
+  },
+  marginRight: 0,
+  marginLeft: 0,
+  marginBottom: 10,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
+  },
+}));
 
 const bull = (
   <Box
@@ -27,6 +74,8 @@ const CompaniesScreen = () => {
   const navigate = useNavigate();
   const user = useSelector(selectUser);
   const [companies, setCompanies] = useState([]);
+  const [duplicatecompanies, setDuplicatecompanies] = useState([]);
+  let tempcompanies = [];
   const [loading, setLoading] = useState();
   const [page, setPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState();
@@ -59,7 +108,15 @@ const CompaniesScreen = () => {
         console.log("Error => ", err);
       });
     setCompanies(data);
+    setDuplicatecompanies(data);
     setLoading(false);
+  };
+
+  const filterBySearch = (e) => {
+    tempcompanies = duplicatecompanies.filter((company) =>
+      company.companyName.toLowerCase().includes(e.toLowerCase())
+    );
+    setCompanies(tempcompanies);
   };
 
   useEffect(() => {
@@ -85,6 +142,19 @@ const CompaniesScreen = () => {
         >
           Create/New
         </Button>
+        <Search
+          onChange={(e) => {
+            filterBySearch(e.target.value);
+          }}
+        >
+          <SearchIconWrapper>
+            <SearchIcon />
+          </SearchIconWrapper>
+          <StyledInputBase
+            placeholder="Search…"
+            inputProps={{ "aria-label": "search" }}
+          />
+        </Search>
       </Grid>
 
       {loading ? (
@@ -97,7 +167,7 @@ const CompaniesScreen = () => {
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
             {companies.map((company, index) => (
-              <Grid item xs={2} sm={4} md={4} key={index}>
+              <Grid item xs={2} sm={4} md={6} key={index}>
                 <Card variant="outlined" sx={{ border: 2, ml: 1, mr: 1 }}>
                   <React.Fragment>
                     <CardContent>
@@ -140,7 +210,6 @@ const CompaniesScreen = () => {
       )}
       <AppPagination setPage={setPage} pageCount={numberOfPages} />
     </div>
-
   );
 };
 

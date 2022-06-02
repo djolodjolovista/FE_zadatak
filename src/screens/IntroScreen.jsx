@@ -9,20 +9,26 @@ import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 
+
+
+
 const IntroScreen = () => {
   const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
   const user = useSelector(selectUser);
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/companies");
-    }
 
+  
+
+  useEffect(() => {
+    if(user)
+    {
+    navigate("/companies");
+    }
     gapi.load("client:auth2", start);
-  });
+    // eslint-disable-next-line
+  },[user]);
 
   const start = () => {
     gapi.client.init({
@@ -31,7 +37,7 @@ const IntroScreen = () => {
     });
   };
 
-  return (
+  return ( 
     <div className="intro_container">
       <Typography variant="h5">
         Ovo je aplikacija za menadzment projekta, molimo vas ulogujte se preko
@@ -43,5 +49,7 @@ const IntroScreen = () => {
     </div>
   );
 };
+
+   
 
 export default IntroScreen;

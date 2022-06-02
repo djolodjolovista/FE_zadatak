@@ -101,36 +101,40 @@ const NewCompanyScreen = () => {
           }}
         />
         {alert ? (
-           <Box
-           component="form"
-           sx={{
-             display: "flex",
-             alignItems: "flex-start",
-             flexDirection: "column",
-             p: 1,
-             m: 1,
-             bgcolor: "background.paper",
-             borderRadius: 1,
-           }}
-         >
-          <Alert sx={{ ml: 4, mt: 2 }} severity="success">
-            Success!
-          </Alert>
-           <Button
-           sx={{ mt: 2, width: "70%", ml: "25%" }}
-           variant="contained"
-           onClick={()=>{navigate("/companies")}}
-         >
-           Go back
-         </Button></Box>
-        ):(
-        <Button
-          sx={{ mt: 2, width: "50%", ml: "25%" }}
-          variant="contained"
-          onClick={addCompanie}
-        >
-          Save
-        </Button>)}
+          <Box
+            component="form"
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+              p: 1,
+              m: 1,
+              bgcolor: "background.paper",
+              borderRadius: 1,
+            }}
+          >
+            <Alert sx={{ ml: 4, mt: 2 }} severity="success">
+              Success!
+            </Alert>
+            <Button
+              sx={{ mt: 2, width: "70%", ml: "25%" }}
+              variant="contained"
+              onClick={() => {
+                navigate("/companies");
+              }}
+            >
+              Go back
+            </Button>
+          </Box>
+        ) : (
+          <Button
+            sx={{ mt: 2, width: "50%", ml: "25%" }}
+            variant="contained"
+            onClick={addCompanie}
+          >
+            Save
+          </Button>
+        )}
       </Box>
     </div>
   );

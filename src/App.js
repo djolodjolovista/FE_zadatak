@@ -8,26 +8,13 @@ import CompaniesScreen from "./screens/CompaniesScreen";
 import ShowMoreScreen from "./screens/ShowMoreScreen";
 import EditCompanyScreen from "./screens/EditCompanyScreen";
 import DeleteScreen from "./screens/DeleteScreen";
-import {useSelector} from 'react-redux';
-import {selectUser} from '../src/features/userSlice';
+import ProtectedRoutes from "./ProtectedRoutes";
 
 
 
 function App() {
-  const user = useSelector(selectUser);
+  
 
-  if(user===null)
-  {
-    return (
-      <BrowserRouter>
-      <Navbar />
-       <Routes>
-         <Route path="/" element={<IntroScreen />} />
-         </Routes>
-      </BrowserRouter>
-    )
-  }
-  else {
 
   return (
     <div>
@@ -35,17 +22,19 @@ function App() {
       <BrowserRouter>
       <Navbar />
        <Routes>
-         <Route path="/" element={<IntroScreen />} />
+         <Route path="/" element={<IntroScreen />}  />
+         <Route element={<ProtectedRoutes />} >
          <Route path="/show-more" element={<ShowMoreScreen />} />
          <Route path="/companies" element={<CompaniesScreen />} />
          <Route path="/drag-and-drop" element={<DragAndDropScreen />} />
          <Route path="/new-company" element={<NewCompanyScreen />} />
          <Route path="/edit-company/:companyId" element={<EditCompanyScreen />} />
          <Route path="/delete-company/:companyId" element={<DeleteScreen />} /> 
+         </Route>
         </Routes>
       </BrowserRouter>
     </div>
-  );}
+  );
 }
 
 export default App;
