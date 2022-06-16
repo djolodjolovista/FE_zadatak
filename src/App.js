@@ -1,24 +1,36 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css';
 import Navbar from "./components/Navbar";
-import DragAndDropscreen from "./screens/DragAndDropscreen";
-import Introscreen from "./screens/Introscreen";
-import Newprojectscreen from "./screens/Newprojectscreen";
-import Projectscreen from "./screens/Projectscreen";
-import Showmorescreen from "./screens/Showmorescreen";
+import DragAndDropScreen from "./screens/DragAndDropScreen";
+import IntroScreen from "./screens/IntroScreen";
+import NewCompanyScreen from "./screens/NewCompanyScreen";
+import CompaniesScreen from "./screens/CompaniesScreen";
+import ShowMoreScreen from "./screens/ShowMoreScreen";
+import EditCompanyScreen from "./screens/EditCompanyScreen";
+import DeleteScreen from "./screens/DeleteScreen";
+import ProtectedRoutes from "./ProtectedRoutes";
+
+
 
 function App() {
+  
+
+
   return (
     <div>
      
       <BrowserRouter>
       <Navbar />
        <Routes>
-         <Route path="/" element={<Introscreen />} />
-         <Route path="/showmore" element={<Showmorescreen />} />
-         <Route path="/projects" element={<Projectscreen />} />
-         <Route path="/draganddrop" element={<DragAndDropscreen />} />
-         <Route path="/newproject" element={<Newprojectscreen />} />
+         <Route path="/" element={<IntroScreen />}  />
+         <Route element={<ProtectedRoutes />} >
+         <Route path="/show-more" element={<ShowMoreScreen />} />
+         <Route path="/companies" element={<CompaniesScreen />} />
+         <Route path="/drag-and-drop" element={<DragAndDropScreen />} />
+         <Route path="/new-company" element={<NewCompanyScreen />} />
+         <Route path="/edit-company/:companyId" element={<EditCompanyScreen />} />
+         <Route path="/delete-company/:companyId" element={<DeleteScreen />} /> 
+         </Route>
         </Routes>
       </BrowserRouter>
     </div>

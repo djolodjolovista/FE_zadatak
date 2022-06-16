@@ -8,18 +8,33 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '../features/userSlice';
 
 
+
+
+
 const Navbar = () => {
+
+  
+
+  
   
   const user = useSelector(selectUser);
+
+ 
+
+  
+  
   
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
         
-          {user ? (<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Projects</ Typography>) : 
+          {user ? (<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Companies</ Typography>) : 
             (<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>Home</Typography>)}
+            
+          
           {user && (<Logout />)}
+          
         </Toolbar>
       </AppBar>
     </Box>
