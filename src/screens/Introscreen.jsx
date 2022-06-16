@@ -1,0 +1,52 @@
+import React, {useEffect} from 'react';
+import Login from '../components/Login';
+import Logout from '../components/Logout';
+import "./Intro.css";
+import {gapi} from 'gapi-script'
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
+import {useNavigate} from 'react-router-dom';
+import { Typography } from '@mui/material';
+
+
+const Introscreen = () => {
+
+ const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
+ const user = useSelector(selectUser);
+
+ const navigate = useNavigate();
+
+  useEffect(() => {
+    
+    if(user){
+      navigate("/projects");
+    }
+    
+   gapi.load('client:auth2', start);
+   
+  });
+  
+
+  const start = () => {
+    gapi.client.init({
+     clientId: clientId,
+     scope: ""
+     
+   })
+ };
+
+
+
+  return (
+    <div className='intro_container'>
+        <Typography variant="h5">Ovo je aplikacija za menadzment projekta, molimo vas ulogujte se preko googla:</Typography>
+        <div className='intro_text_container'>
+          {user ? (<Logout />) : (<Login />)}
+
+        </div>
+    </div>
+  )
+}
+
+export default Introscreen

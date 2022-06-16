@@ -1,0 +1,7 @@
+.intro_container {
+    margin: auto;
+    margin-top: 15%;
+    width: 50%;
+    border: 3px solid rgb(51, 148, 222);
+    padding: 10px;
+}

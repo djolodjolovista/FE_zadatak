@@ -1,0 +1,9 @@
+.loginSpan {
+    color:blue;
+    text-decoration: underline;
+}
+
+.loginSpan:hover {
+    color: lightblue;
+    cursor: pointer;
+}
