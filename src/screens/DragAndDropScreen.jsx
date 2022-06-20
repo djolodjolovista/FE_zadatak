@@ -4,30 +4,24 @@ import { Card, Typography } from "@mui/material";
 import GridLayout from "react-grid-layout";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
-import axios from "axios";
+import {client} from "../features/webApi";
 import "./DragAndDropScreen.css";
 
 const DragAndDropScreen = () => {
-  const user = useSelector(selectUser);
-  const tokenId = user.tokenId;
   const [companies, setCompanies] = useState([]);
+  const user = useSelector(selectUser);
+  const token = user.tokenId;
+  const request = client(token);
   const fetchData = async () => {
     let data = {};
 
-    await axios
-      .get("https://srg-budget-tracker-api.herokuapp.com/companies", {
-        headers: {
-          Authorization: `Bearer ${tokenId}`,
-        },
-      })
+    await request
+      .get("companies")
       .then((res) => {
         data = res.data.items;
-        console.log("Companies => ", data);
-
-        console.log("Name=> ", data[1].companyName);
       })
       .catch((err) => {
-        console.log("Error => ", err);
+        alert("Error: ", err);
       });
     setCompanies(data);
   };
