@@ -6,11 +6,11 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
+import {client} from "../features/webApi"
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
 
 const bull = (
   <Box
@@ -24,27 +24,21 @@ const bull = (
 const DeleteScreen = () => {
   const { companyId } = useParams();
   const [company, setCompany] = useState({});
-  const user = useSelector(selectUser);
-  const tokenId = user.tokenId;
   const navigate = useNavigate();
   const [alert, setAlert] = useState(false);
+  const user = useSelector(selectUser);
+  const token = user.tokenId;
+  const request = client(token);
   const fetchData = async () => {
     let data = {};
-    await axios
-      .get(
-        `https://srg-budget-tracker-api.herokuapp.com/companies/${companyId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenId}`,
-          },
-        }
-      )
+    
+    await request
+      .get(`companies/${companyId}`)
       .then((res) => {
         data = res.data;
-        console.log("Companies => ", data);
       })
       .catch((err) => {
-        console.log(err);
+        alert("Error: ", err);
       });
 
     setCompany(data);
@@ -57,18 +51,9 @@ const DeleteScreen = () => {
 
   const deleteCompany = async () => {
     try {
-      await axios.delete(
-        `https://srg-budget-tracker-api.herokuapp.com/companies/${companyId}`,
-
-        {
-          headers: {
-            Authorization: `Bearer ${tokenId}`,
-          },
-        }
-      );
-      console.log("Success!");
+      await request.delete(`companies/${companyId}`);
     } catch (error) {
-      console.log(error);
+      alert("Error: ", error);
       setAlert(false);
     }
     setAlert(true);
@@ -83,7 +68,7 @@ const DeleteScreen = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Card variant="outlined" sx={{ width: "50%", mt: 2, border:2 }}>
+        <Card variant="outlined" sx={{ width: "50%", mt: 2, border: 2 }}>
           <React.Fragment>
             <CardContent>
               <Typography

@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button, TextField, Typography, Box } from "@mui/material";
 import "./NewCompanyScreen.css";
-import axios from "axios";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import {client} from "../features/webApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -20,12 +20,13 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const NewCompanyScreen = () => {
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
-  const user = useSelector(selectUser);
-  const textInput = React.useRef(null);
+  const textInput = useRef(null);
   const [alert, setAlert] = useState(false);
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const token = user.tokenId;
+  const request = client(token);
 
-  const tokenId = user.tokenId;
   const handleClose = () => {
     setOpen(false);
   };
@@ -33,19 +34,9 @@ const NewCompanyScreen = () => {
   const addCompanie = async () => {
     if (name !== "") {
       try {
-        await axios.post(
-          "https://srg-budget-tracker-api.herokuapp.com/companies",
-          { companyName: `${name}` },
-          {
-            headers: {
-              Authorization: `Bearer ${tokenId}`,
-            },
-          }
-        );
-        console.log("Success!");
-        console.log(name);
+        await request.post("companies", { companyName: `${name}` });
       } catch (error) {
-        console.log(error);
+        alert("Error: ", error);
         setAlert(false);
       }
       setAlert(true);

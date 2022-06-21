@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { selectUser } from "../features/userSlice";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
@@ -18,6 +15,9 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
+import { useSelector } from "react-redux";
+import { selectUser } from "../features/userSlice";
+import {client} from "../features/webApi";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -34,14 +34,15 @@ const bull = (
 
 const EditCompanyScreen = () => {
   const { companyId } = useParams();
-  const user = useSelector(selectUser);
-  const tokenId = user.tokenId;
   const [company, setCompany] = useState({});
   const [alert, setAlert] = useState(false);
   const [name, setName] = useState("");
   const [open, setOpen] = useState(false);
-  const textInput = React.useRef(null);
+  const textInput = useRef(null);
   const navigate = useNavigate();
+  const user = useSelector(selectUser);
+  const token = user.tokenId;
+  const request = client(token);
 
   const handleClose = () => {
     setOpen(false);
@@ -49,42 +50,31 @@ const EditCompanyScreen = () => {
 
   const fetchData = async () => {
     let data = {};
-    await axios
-      .get(
-        `https://srg-budget-tracker-api.herokuapp.com/companies/${companyId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenId}`,
-          },
-        }
-      )
+    await request
+      .get(`companies/${companyId}`)
       .then((res) => {
         data = res.data;
-        console.log("Companies => ", data);
       })
       .catch((err) => {
-        console.log(err);
+        alert("Error: ", err);
       });
 
     setCompany(data);
+    setName(data.companyName);
+    textInput.current.value = data.companyName;
   };
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 
   const updateCompany = async () => {
     if (name !== "") {
       try {
-        await axios.put(
-          `https://srg-budget-tracker-api.herokuapp.com/companies/${companyId}`,
-          { companyName: `${name}` },
-          {
-            headers: {
-              Authorization: `Bearer ${tokenId}`,
-            },
-          }
-        );
-        console.log("Success!");
-        console.log(name);
+        await request.put(`companies/${companyId}`, {
+          companyName: `${name}`,
+        });
       } catch (error) {
-        console.log(error);
+        alert("Error: ", error);
         setAlert(false);
       }
       setAlert(true);
@@ -163,7 +153,7 @@ const EditCompanyScreen = () => {
             sx={{ mt: 2 }}
             inputRef={textInput}
             id="outlined-basic"
-            label="Company name"
+            
             variant="outlined"
             onChange={(e) => {
               setName(e.target.value);
@@ -172,7 +162,7 @@ const EditCompanyScreen = () => {
           />
           {alert ? (
             <Box
-              component="form"
+              component="div"
               sx={{
                 display: "flex",
                 alignItems: "flex-start",
@@ -200,7 +190,11 @@ const EditCompanyScreen = () => {
             <Button
               sx={{ mt: 2, width: "50%", ml: "25%" }}
               variant="contained"
-              onClick={updateCompany}
+              onClick={ async () => {
+                updateCompany();
+                await delay (250);
+                fetchData();
+              }}
             >
               Update
             </Button>

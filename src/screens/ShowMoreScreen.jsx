@@ -3,13 +3,13 @@ import "./ShowMoreScreen.css";
 import Box from "@mui/material/Box";
 
 const ShowMoreScreen = () => {
-  const [showMore, setshowMore] = useState("none");
+  const [showMore, setShowMore] = useState("none");
 
   const show = () => {
     if (showMore === "") {
-      setshowMore("none");
+      setShowMore("none");
     } else {
-      setshowMore("");
+      setShowMore("");
     }
   };
 
