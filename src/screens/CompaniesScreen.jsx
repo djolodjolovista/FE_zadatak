@@ -196,7 +196,6 @@ const CompaniesScreen = () => {
           </Grid>
         </Box>
       )}
-
       <AppPagination page={page} setPage={setPage} pageCount={numberOfPages} />
     </div>
   );

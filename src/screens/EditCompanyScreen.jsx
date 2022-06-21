@@ -86,7 +86,6 @@ const EditCompanyScreen = () => {
 
   useEffect(() => {
     fetchData();
-    
     // eslint-disable-next-line
   }, []);
 
@@ -191,9 +190,9 @@ const EditCompanyScreen = () => {
             <Button
               sx={{ mt: 2, width: "50%", ml: "25%" }}
               variant="contained"
-              onClick={ async event => {
+              onClick={ async () => {
                 updateCompany();
-                await delay (200);
+                await delay (250);
                 fetchData();
               }}
             >
